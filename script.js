@@ -13,18 +13,37 @@ function valueCheck(){
     console.log(num1);
     console.log(num2);
     console.log(operator);
+    console.log(`type of num1  ${typeof(num1)}`)
 }
+valueCheck()
+
 
 // this function listens when user clicks any number button and it assign value to variable 'num1' and 'num2'
 numbers.forEach((button) => {
     button.addEventListener('click', () => {
         console.log(`inside numbers  ${typeof(button.value)}`)
-        if(!num1){ // &&!operator
-            num1 = Number(button.value);
+        if(!num1 && !operator){ 
+            num1 = button.value;
             console.log(`num1  ${num1}`)
-        }else if(!num2){
-            num2 = Number(button.value);
+        }
+        else if(!operator){
+            if(num1==='0'){
+             num1=button.value;
+            }else{
+            num1 += button.value;
+            console.log(`num1  ${num1}`)
+        }
+        }
+        else if(!num2){
+            num2 = button.value;
             console.log(`num2  ${num2}`)
+        }else {
+            if(num2==='0'){
+                num2=button.value;
+            }else{
+            num2 += button.value;
+            console.log(`num2  ${num2}`)
+            }
         }
         valueCheck();
     });
@@ -81,20 +100,20 @@ function add(a,b){
     // // console.log(`inside add value of b  ${typeof(b)}`)
     // c=a+b
     // console.log(`inside add a+b is ${c} and type of a+b is  ${typeof(c)}`)
-    return a+b;
+    return Number(a)+Number(b);
 }
 
 // this function perform subtraction
 function subtract(a,b){
-    return a-b;
+    return Number(a)-Number(b);
 }
 
 // this function perform multiplication
 function multiplication(a,b){
-    return a*b;
+    return Number(a)*Number(b);
 }
 
 // this function perform division
 function division(a,b){
-    return a/b;
+    return Number(a)/Number(b);
 }
