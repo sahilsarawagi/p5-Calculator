@@ -22,60 +22,71 @@ valueCheck()
 numbers.forEach((button) => {
     button.addEventListener('click', () => {
         console.log(`inside numbers  ${typeof(button.value)}`)
-        if(!num1 && !operator){ 
-            num1 = button.value;
-            console.log(`num1  ${num1}`)
-        }
-        else if(!operator){
-            if(num1==='0'){
-             num1=button.value;
-            }else{
-            num1 += button.value;
-            console.log(`num1  ${num1}`)
-        }
-        }
-        else if(!num2){
-            num2 = button.value;
-            console.log(`num2  ${num2}`)
-        }else {
-            if(num2==='0'){
-                num2=button.value;
-            }else{
-            num2 += button.value;
-            console.log(`num2  ${num2}`)
-            }
-        }
+        handleNumberButtonLogic(button.value);
         valueCheck();
     });
 });
 
+function handleNumberButtonLogic(buttonValue){
+    if(!num1 && !operator){ 
+        num1 = buttonValue;
+        console.log(`num1  ${num1}`)
+    }
+    else if(!operator){
+        if(num1==='0'){
+         num1=buttonValue;
+        }else{
+        num1 += buttonValue;
+        console.log(`num1  ${num1}`)
+    }
+    }
+    else if(!num2){
+        num2 = buttonValue;
+        console.log(`num2  ${num2}`)
+    }else {
+        if(num2==='0'){
+            num2=buttonValue;
+        }else{
+        num2 += buttonValue;
+        console.log(`num2  ${num2}`)
+        }
+    }
+}
+
 // this function listens when user clicks the equal button 
 equlaSign.addEventListener('click', () => {
-        if(!num2){
-            return
-        }
-        num1=calculation(num1,num2,operator);
-        num2=null;
-        operator=null;
+        handleEqualButtonLogic();
         valueCheck();
     });
 
+function handleEqualButtonLogic(){
+    if(!num2){
+        return
+    }
+    num1=calculation(num1,num2,operator);
+    num2=null;
+    operator=null;
+}
 
 // this function listens when user clicks  any operator button and it assign value to variable 'operator'
 operators.forEach((button) => {
     button.addEventListener('click', () => {   
     console.log(`inside operator  ${typeof(button.value)}`)
     valueCheck();
+    handleOperatorButtonLogic(button.value)
+    valueCheck();
+    });
+});
+
+function handleOperatorButtonLogic(buttonValue){
     if(num2){
         num1 = calculation(num1,num2,operator);
         console.log(`num1  ${num1}`)
         num2=null;
     }
-    operator = button.value;
-    valueCheck();
-    });
-});
+    operator = buttonValue;
 
+}
 
 // this function checks operation and perform it  
 function calculation(num1,num2,operator){
